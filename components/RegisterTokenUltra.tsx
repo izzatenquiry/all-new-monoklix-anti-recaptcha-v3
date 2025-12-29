@@ -31,8 +31,10 @@ const RegisterTokenUltra: React.FC<RegisterTokenUltraProps> = ({ currentUser, on
     loadRegistration();
   }, [currentUser.id]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
     
     if (!telegramId.trim()) {
       setErrorMessage('Please enter your Telegram ID');
@@ -161,29 +163,7 @@ const RegisterTokenUltra: React.FC<RegisterTokenUltraProps> = ({ currentUser, on
       )}
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-        {/* Left Panel: Payment Barcode */}
-        <div className="bg-white dark:bg-neutral-900 rounded-lg shadow-sm p-4 sm:p-6">
-          <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">
-            Payment Information
-          </h3>
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4">
-            <p className="text-sm text-blue-800 dark:text-blue-200 mb-2">
-              <strong>Payment Amount:</strong> RM20.00
-            </p>
-            <p className="text-xs text-blue-700 dark:text-blue-300">
-              Please scan the barcode below to complete your payment.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-neutral-800 p-4 rounded-lg border border-neutral-200 dark:border-neutral-700">
-            <img 
-              src="https://monoklix.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-29-at-5.30.38-PM.jpeg" 
-              alt="Payment Barcode" 
-              className="w-full h-auto rounded-lg"
-            />
-          </div>
-        </div>
-
-        {/* Right Panel: Registration Form */}
+        {/* Left Panel: Registration Form */}
         <div className="bg-white dark:bg-neutral-900 rounded-lg shadow-sm p-4 sm:p-6">
           <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">
             Registration Form
@@ -261,10 +241,34 @@ const RegisterTokenUltra: React.FC<RegisterTokenUltraProps> = ({ currentUser, on
               </p>
             </div>
           )}
+          </form>
+        </div>
 
+        {/* Right Panel: Payment Barcode */}
+        <div className="bg-white dark:bg-neutral-900 rounded-lg shadow-sm p-4 sm:p-6">
+          <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">
+            Payment Information
+          </h3>
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4">
+            <p className="text-sm text-blue-800 dark:text-blue-200 mb-2">
+              <strong>Payment Amount:</strong> RM20.00
+            </p>
+            <p className="text-xs text-blue-700 dark:text-blue-300">
+              Please scan the barcode below to complete your payment.
+            </p>
+          </div>
+          <div className="bg-white dark:bg-neutral-800 p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 mb-4">
+            <img 
+              src="https://monoklix.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-29-at-5.30.38-PM.jpeg" 
+              alt="Payment Barcode" 
+              className="w-full h-auto rounded-lg"
+            />
+          </div>
+          
           {/* Submit Button */}
           <button
-            type="submit"
+            type="button"
+            onClick={handleSubmit}
             disabled={isSubmitting || submitStatus === 'success'}
             className="w-full flex items-center justify-center gap-2 bg-primary-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
@@ -282,7 +286,6 @@ const RegisterTokenUltra: React.FC<RegisterTokenUltraProps> = ({ currentUser, on
               <span>Submit Payment Proof</span>
             )}
           </button>
-          </form>
         </div>
       </div>
 
