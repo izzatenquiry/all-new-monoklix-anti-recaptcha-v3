@@ -176,20 +176,9 @@ const App: React.FC = () => {
                     const localhostServer = servers.find(s => s === localhostUrl);
                     selected = localhostServer || servers[0];
                 } else {
-                    // For webbase users, prefer s1 or s12 (for admin/special users)
-                    const s1Url = 'https://s1.monoklix.com';
-                    const s12Url = 'https://s12.monoklix.com';
-                    
-                    // Check if user can access VIP server (s12)
-                    const canAccessVip = currentUser.role === 'admin' || currentUser.role === 'special_user';
-                    
-                    if (canAccessVip && servers.includes(s12Url)) {
-                        // Admin/Special users: prefer s12, fallback to s1
-                        selected = servers.includes(s12Url) ? s12Url : (servers.includes(s1Url) ? s1Url : servers[0]);
-                    } else {
-                        // Regular users: prefer s1, fallback to first available
-                        selected = servers.includes(s1Url) ? s1Url : servers[0];
-                    }
+                    // For webbase users, randomly select from available servers
+                    const randomIndex = Math.floor(Math.random() * servers.length);
+                    selected = servers[randomIndex];
                 }
                 sessionStorage.setItem('selectedProxyServer', selected);
             }

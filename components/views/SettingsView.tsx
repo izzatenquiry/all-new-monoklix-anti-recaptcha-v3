@@ -23,7 +23,7 @@ const getTabs = (): Tab<SettingsTabId>[] => {
     return [
         { id: 'profile', label: T.tabs.profile },
         { id: 'flowLogin', label: 'Token Setting' },
-        { id: 'registerTokenUltra', label: 'Register Token Ultra' },
+        { id: 'registerTokenUltra', label: 'Token Ultra' },
     ];
 }
 
